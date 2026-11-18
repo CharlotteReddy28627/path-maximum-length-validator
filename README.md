@@ -78,3 +78,10 @@ trivially valid, because an empty path is not a path.
 - `PathLengthError` — base class for path length failures.
 - `PathTooLongError` — subclass raised when a path exceeds its limit; carries
   `.path`, `.limit` and `.actual`.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
